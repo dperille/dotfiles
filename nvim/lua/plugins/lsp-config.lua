@@ -12,7 +12,12 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "ts_ls", "jdtls" },
+                ensure_installed = { 
+                    "lua_ls", -- Lua
+                    "ts_ls", -- TypeScript
+                    "jdtls", -- Java (Eclipse)
+                    "gopls", -- Golang
+                },
             })
         end
     },
@@ -40,7 +45,7 @@ return {
         config = function()
             local lspconfig = require("lspconfig")
 
-            -- set up lua language server
+            -- set up Lua language server
             lspconfig.lua_ls.setup({
                 settings = {
                     Lua = {
@@ -55,8 +60,12 @@ return {
                 },
             })
 
-            -- set up typescript language server
+            -- set up Typescript language server
             lspconfig.ts_ls.setup({})
+
+
+            -- set up Golang language server
+            lspconfig.gopls.setup({})
            
             -- Diagnostic messages
             vim.diagnostic.config({
