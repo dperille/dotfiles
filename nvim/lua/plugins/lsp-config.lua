@@ -65,7 +65,18 @@ return {
 
 
             -- set up Golang language server
-            lspconfig.gopls.setup({})
+            lspconfig.gopls.setup({
+                filetypes = { "go", "gomod", "gowork", "gotmpl" },
+                settings = {
+                    gopls = {
+                        completeUnimported = true,
+                        usePlaceholders = true,
+                        analyses = {
+                            unusedparams = true,
+                        },
+                    },
+                },
+            })
            
             -- Diagnostic messages
             vim.diagnostic.config({
