@@ -1,12 +1,4 @@
 return {
-    -- mason is used to install & manage LSP servers, DAP servers, linters, etc.
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            -- set up mason with default properties
-            require("mason").setup()
-        end
-    },
     -- mason-lspconfig uses mason to automatically ensure desired LSP servers are installed
     {
         "williamboman/mason-lspconfig.nvim",
