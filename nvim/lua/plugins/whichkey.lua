@@ -8,12 +8,13 @@ return {
         which_key.setup()
 
         -- Register prefixes
-        which_key.register({
-              c = { name = "[C]ode" },
-              e = { name = "[E]xplorer" },
-              f = { name = "[F]ind" },
-              g = { name = "[G]it" },
-              J = { name = "[J]ava" },
-        }, { prefix = "<leader>" })
+        which_key.add({
+          {"<leader>g", group = "[G]it"},
+          {"<leader>f", group = "[F]ind"},
+          {"<leader>e", group = "[E]xplorer"},
+          {"<leader>c", group = "[C]ode"},
+          {"<leader>h", group = "[H]arpoon"},
+          {"<leader>w", group = "[W]indow"},
+        })
     end
 }
