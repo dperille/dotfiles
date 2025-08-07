@@ -9,6 +9,20 @@ vim.keymap.set('n', 'k', 'gk')
 -- 0 always goes to first non-whitespace
  vim.keymap.set('n', '0', '_')
 
- -- Easily split windows
-vim.keymap.set("n", "<leader>wv", ":vsplit<cr>", { desc = "[W]indow Split [V]ertical" })
-vim.keymap.set("n", "<leader>wh", ":split<cr>", { desc = "[W]indow Split [H]orizontal" })
+ -- Manage windows
+vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { desc = "[W]indow Split [V]ertical" })
+vim.keymap.set("n", "<leader>ws", ":split<CR>", { desc = "[W]indow [S]plit Horizontal" })
+
+vim.keymap.set("n", "<leader>wc", ":winc c<CR>", { desc = "[W]indow [C]lose" })
+vim.keymap.set('n', '<leader>wn', ":winc n<CR>", { desc = "[W]indow [N]ew empty" })
+vim.keymap.set('n', '<leader>wp', ":winc p<CR>", { desc = "[W]indow [P]revious" })
+
+vim.keymap.set('n', '<leader>wh', ":winc h<CR>", { desc = "Move cursor to window left" })
+vim.keymap.set('n', '<leader>wj', ":winc j<CR>", { desc = "Move cursor to window below" })
+vim.keymap.set('n', '<leader>wk', ":winc k<CR>", { desc = "Move cursor to window above" })
+vim.keymap.set('n', '<leader>wl', ":winc l<CR>", { desc = "Move cursor to window right" })
+
+vim.keymap.set('n', '<leader>w>', ":winc ><CR>", { desc = "[W]indow increase width" })
+vim.keymap.set('n', '<leader>w<', ":winc <<CR>", { desc = "[W]indow decrease width" })
+vim.keymap.set('n', '<leader>w+', ":winc +<CR>", { desc = "[W]indow increase height" })
+vim.keymap.set('n', '<leader>w-', ":winc -<CR>", { desc = "[W]indow decrease height" })
