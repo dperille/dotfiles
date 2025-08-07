@@ -49,12 +49,6 @@ return {
                         },
                     },
                 },
-                pickers = {
-                    planets = {
-                        show_pluto = true,
-                        show_moon = true,
-                    },
-                },
             })
         end
     },

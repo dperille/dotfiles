@@ -7,8 +7,9 @@ return {
                 ensure_installed = { 
                     "lua_ls", -- Lua
                     "ts_ls", -- TypeScript
-                    "jdtls", -- Java (Eclipse)
+                    -- "jdtls", -- Java (Eclipse)
                     "gopls", -- Golang
+                    "pyright", -- Python
                 },
             })
         end
@@ -69,6 +70,9 @@ return {
                     },
                 },
             })
+
+            -- set up Python language server
+            lspconfig.pyright.setup({})
            
             -- Diagnostic messages
             vim.diagnostic.config({
