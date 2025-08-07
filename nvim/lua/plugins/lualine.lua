@@ -52,7 +52,7 @@ return {
                 lualine_b = { "branch", "diff", "diagnostics" },
                 -- filename and current LSP
                 lualine_c = {
-                    "filename",
+                    {"filename", path = 1}, -- path=1 shows relative path 
                     "%=", -- used to center the LSP status
                     { lsp_status, icon = ' LSP:', color = { fg = '#ffffff' }, separator = { left = '', right = '' } },
                 },
