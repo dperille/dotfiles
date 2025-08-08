@@ -15,6 +15,7 @@ return {
           {"<leader>c", group = "[C]ode"},
           {"<leader>h", group = "[H]arpoon"},
           {"<leader>w", group = "[W]indow"},
+          {"<leader>t", group = "[T]erminal"},
         })
     end
 }
