@@ -6,7 +6,6 @@ return {
             require('mason-null-ls').setup({
                 ensure_installed = {
                     'prettier', -- TS/JS formatter
-                    'eslint_d', -- TS/JS linter
                     'stylua', -- Lua formatter
                     'gopls',
                     'gofumpt',
@@ -26,6 +25,7 @@ return {
             null_ls.setup({
                 debug = true,
                 sources = {
+                    null_ls.builtins.formatting.prettier,
                     null_ls.builtins.formatting.gofumpt,
                     null_ls.builtins.formatting.goimports_reviser, -- goimports, but with more deterministic sorting
                     null_ls.builtins.formatting.golines, -- Try to shorten long lines
