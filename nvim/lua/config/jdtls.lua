@@ -24,7 +24,7 @@ local function get_bundles()
     return bundles
 end
 
--- Sets up JDTLS workspace 
+-- Sets up JDTLS workspace
 -- TODO: modify this to create in the project root, similar to the .idea folder
 local function get_workspace()
     -- Get home directory
@@ -43,19 +43,26 @@ end
 -- TODO: go through these
 local function java_keymaps()
     -- Set a Vim motion to <Space> + <Shift>J + o to organize imports in normal mode
-    vim.keymap.set('n', '<leader>Jo', "<Cmd> lua require('jdtls').organize_imports()<CR>", { desc = "[J]ava [O]rganize Imports" })
+    vim.keymap.set('n', '<leader>Jo', "<Cmd> lua require('jdtls').organize_imports()<CR>",
+        { desc = "[J]ava [O]rganize Imports" })
     -- Set a Vim motion to <Space> + <Shift>J + v to extract the code under the cursor to a variable
-    vim.keymap.set('n', '<leader>Jv', "<Cmd> lua require('jdtls').extract_variable()<CR>", { desc = "[J]ava Extract [V]ariable" })
+    vim.keymap.set('n', '<leader>Jv', "<Cmd> lua require('jdtls').extract_variable()<CR>",
+        { desc = "[J]ava Extract [V]ariable" })
     -- Set a Vim motion to <Space> + <Shift>J + v to extract the code selected in visual mode to a variable
-    vim.keymap.set('v', '<leader>Jv', "<Esc><Cmd> lua require('jdtls').extract_variable(true)<CR>", { desc = "[J]ava Extract [V]ariable" })
+    vim.keymap.set('v', '<leader>Jv', "<Esc><Cmd> lua require('jdtls').extract_variable(true)<CR>",
+        { desc = "[J]ava Extract [V]ariable" })
     -- Set a Vim motion to <Space> + <Shift>J + <Shift>C to extract the code under the cursor to a static variable
-    vim.keymap.set('n', '<leader>JC', "<Cmd> lua require('jdtls').extract_constant()<CR>", { desc = "[J]ava Extract [C]onstant" })
+    vim.keymap.set('n', '<leader>JC', "<Cmd> lua require('jdtls').extract_constant()<CR>",
+        { desc = "[J]ava Extract [C]onstant" })
     -- Set a Vim motion to <Space> + <Shift>J + <Shift>C to extract the code selected in visual mode to a static variable
-    vim.keymap.set('v', '<leader>JC', "<Esc><Cmd> lua require('jdtls').extract_constant(true)<CR>", { desc = "[J]ava Extract [C]onstant" })
+    vim.keymap.set('v', '<leader>JC', "<Esc><Cmd> lua require('jdtls').extract_constant(true)<CR>",
+        { desc = "[J]ava Extract [C]onstant" })
     -- Set a Vim motion to <Space> + <Shift>J + t to run the test method currently under the cursor
-    vim.keymap.set('n', '<leader>Jt', "<Cmd> lua require('jdtls').test_nearest_method()<CR>", { desc = "[J]ava [T]est Method" })
+    vim.keymap.set('n', '<leader>Jt', "<Cmd> lua require('jdtls').test_nearest_method()<CR>",
+        { desc = "[J]ava [T]est Method" })
     -- Set a Vim motion to <Space> + <Shift>J + t to run the test method that is currently selected in visual mode
-    vim.keymap.set('v', '<leader>Jt', "<Esc><Cmd> lua require('jdtls').test_nearest_method(true)<CR>", { desc = "[J]ava [T]est Method" })
+    vim.keymap.set('v', '<leader>Jt', "<Esc><Cmd> lua require('jdtls').test_nearest_method(true)<CR>",
+        { desc = "[J]ava [T]est Method" })
     -- Set a Vim motion to <Space> + <Shift>J + <Shift>T to run an entire test suite (class)
     vim.keymap.set('n', '<leader>JT', "<Cmd> lua require('jdtls').test_class()<CR>", { desc = "[J]ava [T]est Class" })
 end
@@ -84,7 +91,7 @@ local function setup_jdtls()
 
     -- Get default capabilities from completion plugin & merge with above
     local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-    for k,v in pairs(lsp_capabilities) do capabilities[k] = v end
+    for k, v in pairs(lsp_capabilities) do capabilities[k] = v end
 
     -- Allow JDTLS to do more complex operations
     local extendedClientCapabilities = jdtls.extendedClientCapabilities
@@ -198,5 +205,3 @@ end
 return {
     setup_jdtls = setup_jdtls,
 }
-
-

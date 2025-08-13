@@ -5,10 +5,10 @@ return {
         config = function()
             require("mason-null-ls").setup({
                 ensure_installed = {
-                    "prettier", -- TS/JS formatter
-                    "stylua", -- Lua formatter
-                    "gofumpt", -- stricter gofmt
-                    "golines", -- Try to shorten long lines
+                    "prettier",          -- TS/JS formatter
+                    "stylua",            -- Lua formatter
+                    "gofumpt",           -- stricter gofmt
+                    "golines",           -- Try to shorten long lines
                     "goimports_reviser", -- goimports, but more deterministic sorting
                 },
             })
@@ -25,6 +25,15 @@ return {
                 debug = true,
                 sources = {
                     null_ls.builtins.formatting.prettier,
+                    null_ls.builtins.formatting.stylua.with({
+                        extra_args = {
+                            "--column-width", "9999", -- don't reformat long lines
+                            "--indent_type", "Spaces",
+                            "--indent-width", "4",
+                            "--call-parentheses", "Always", -- always use parentheses for function calls
+                            "--quote-style", "ForceDouble",
+                        },
+                    }),
                     null_ls.builtins.formatting.gofumpt,
                     null_ls.builtins.formatting.goimports_reviser,
                     null_ls.builtins.formatting.golines,

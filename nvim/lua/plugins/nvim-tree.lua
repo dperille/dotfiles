@@ -26,7 +26,7 @@ return {
                 end
 
                 api.tree.find_file({
-                    open = true, -- Open tree if not already
+                    open = true,  -- Open tree if not already
                     focus = true, -- Focus tree
                     buf = get_prev_buf_if_tree_focused()
                 })
@@ -53,7 +53,7 @@ return {
                 severity = {
                     min = vim.diagnostic.severity.WARN,
                     max = vim.diagnostic.severity.ERROR,
-               }
+                }
             },
         })
     end

@@ -1,5 +1,5 @@
 return {
-	"nvim-lualine/lualine.nvim",
+    "nvim-lualine/lualine.nvim",
     dependencies = {
         "nvim-tree/nvim-web-devicons"
     },
@@ -28,14 +28,14 @@ return {
                 -- Set theme
                 theme = "auto",
                 -- Separate components of lua line with chevrons
-				component_separators = { left = "", right = "" },
-				-- Separate sections with solid triangles
-				section_separators = { left = "", right = "" },
+                component_separators = { left = "", right = "" },
+                -- Separate sections with solid triangles
+                section_separators = { left = "", right = "" },
                 disabled_filetypes = {
                     statusline = {},
                     winbar = {},
                 },
-                ignore_focus = {'NvimTree'},
+                ignore_focus = { 'NvimTree' },
                 always_divide_middle = true,
                 globalStatus = false,
                 refresh = {
@@ -52,14 +52,14 @@ return {
                 lualine_b = { "branch", "diff", "diagnostics" },
                 -- filename and current LSP
                 lualine_c = {
-                    {"filename", path = 1}, -- path=1 shows relative path 
-                    "%=", -- used to center the LSP status
+                    { "filename", path = 1 }, -- path=1 shows relative path
+                    "%=",                   -- used to center the LSP status
                     { lsp_status, icon = ' LSP:', color = { fg = '#ffffff' }, separator = { left = '', right = '' } },
                 },
                 -- file encoding and type
-                lualine_x = { 
-                    "encoding", 
-                    { "fileformat", icons_enabled = false, fmt = string.upper }, 
+                lualine_x = {
+                    "encoding",
+                    { "fileformat", icons_enabled = false, fmt = string.upper },
                     "filetype" },
                 -- display where cursor is in the file
                 lualine_y = { "progress" },

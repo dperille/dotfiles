@@ -2,9 +2,9 @@ return {
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",  -- LSP completions
-            "hrsh7th/cmp-buffer",    -- Buffer completions
-            "hrsh7th/cmp-path",      -- Path completions
+            "hrsh7th/cmp-nvim-lsp", -- LSP completions
+            "hrsh7th/cmp-buffer",   -- Buffer completions
+            "hrsh7th/cmp-path",     -- Path completions
         },
         config = function()
             local cmp = require("cmp")
