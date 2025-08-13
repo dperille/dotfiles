@@ -11,7 +11,7 @@ return {
             -- Cursor line
             vim.api.nvim_set_hl(0, "CursorLine", { bg = "#333355" })
 
-            -- Float windows
+            -- Float windows (eg hover)
             vim.api.nvim_set_hl(0, 'NormalFloat', { bg = '#37124a' })
         end
     },
