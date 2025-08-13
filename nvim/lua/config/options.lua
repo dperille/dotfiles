@@ -31,7 +31,7 @@ vim.opt.sidescrolloff = 8
 vim.opt.cursorline = true
 
 -- Display line as single line
-vim.opt.wrap = false 
+vim.opt.wrap = false
 
 
 ---- Tab spacing behavior
@@ -56,7 +56,7 @@ vim.opt.termguicolors = true
 
 -- Sync clipboard between OS and Neovim -- scheduled after `UiEnter` because it can increase startup-time
 vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
+    vim.o.clipboard = 'unnamedplus'
 end)
 
 -- If performing an operation that would fail due to unsaved changes in the buffer (like `:q`), instead raise a dialog asking if you wish to save the current file(s)

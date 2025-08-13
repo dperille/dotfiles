@@ -4,18 +4,18 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { 
-                    "lua_ls", -- Lua
-                    "ts_ls", -- TypeScript
+                ensure_installed = {
+                    "lua_ls",  -- Lua
+                    "ts_ls",   -- TypeScript
                     -- "jdtls", -- Java (Eclipse)
-                    "gopls", -- Golang
+                    "gopls",   -- Golang
                     "pyright", -- Python
                 },
                 automatic_enable = false,
             })
         end
     },
-    -- mason-nvim-dap uses mason to automatically ensure desired debug adapters are installed 
+    -- mason-nvim-dap uses mason to automatically ensure desired debug adapters are installed
     {
         "jay-babu/mason-nvim-dap.nvim",
         config = function()
@@ -83,7 +83,7 @@ return {
             lspconfig.pyright.setup({
                 capabilities = capabilities,
             })
-           
+
             -- Diagnostic messages
             vim.diagnostic.config({
                 virtual_text = {
@@ -91,7 +91,7 @@ return {
                     spacing = 4, -- Spacing between text and virtual text
                     source = "if_many",
                     prefix = "●", -- Prefix for virtual text
-                    
+
                 },
                 underline = true,
                 update_in_insert = false, -- update diagnostics while inserting
@@ -103,7 +103,8 @@ return {
             -- Vim motion for <Space> + c + d to go to definition
             vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "[C]ode Goto [D]efinition" })
             -- Vim motion for <Space> + c + r to go to references
-            vim.keymap.set("n", "<leader>cr", require("telescope.builtin").lsp_references, { desc = "[C]ode Goto [R]eferences" })
+            vim.keymap.set("n", "<leader>cr", require("telescope.builtin").lsp_references,
+                { desc = "[C]ode Goto [R]eferences" })
             -- Vim motion for <Space> + c + a to display code action suggestions for diagnostics
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
             -- Vim motion for <Space> + c + R to rename code
@@ -111,4 +112,3 @@ return {
         end
     }
 }
-

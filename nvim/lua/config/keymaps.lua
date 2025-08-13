@@ -7,12 +7,12 @@ vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 
 -- 0 always goes to first non-whitespace
- vim.keymap.set('n', '0', '_')
+vim.keymap.set('n', '0', '_')
 
- -- Leader-p from visual mode will delete into black-hole register, preserving what was in default yank register
- vim.keymap.set("v", "<leader>p", "\"_dP", { desc = "Put, preserving default register" })
+-- Leader-p from visual mode will delete into black-hole register, preserving what was in default yank register
+vim.keymap.set("v", "<leader>p", "\"_dP", { desc = "Put, preserving default register" })
 
- -- Manage windows
+-- Manage windows
 vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { desc = "[W]indow Split [V]ertical" })
 vim.keymap.set("n", "<leader>ws", ":split<CR>", { desc = "[W]indow [S]plit Horizontal" })
 
