@@ -35,12 +35,15 @@ return {
         "neovim/nvim-lspconfig",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
+            "nvim-telescope/telescope.nvim",
         },
         config = function()
             local lspconfig = require("lspconfig")
+            local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
             -- set up Lua language server
             lspconfig.lua_ls.setup({
+                capabilities = capabilities,
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -56,12 +59,14 @@ return {
 
             -- set up Typescript language server
             lspconfig.ts_ls.setup({
+                capabilities = capabilities,
                 root_dir = lspconfig.util.root_pattern('.git'), -- Use .git folder as LSP root, since subpackage package.json will be too many
             })
 
 
             -- set up Golang language server
             lspconfig.gopls.setup({
+                capabilities = capabilities,
                 filetypes = { "go", "gomod", "gowork", "gotmpl" },
                 settings = {
                     gopls = {
@@ -75,7 +80,9 @@ return {
             })
 
             -- set up Python language server
-            lspconfig.pyright.setup({})
+            lspconfig.pyright.setup({
+                capabilities = capabilities,
+            })
            
             -- Diagnostic messages
             vim.diagnostic.config({
