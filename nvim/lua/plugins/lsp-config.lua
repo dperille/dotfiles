@@ -11,6 +11,7 @@ return {
                     "gopls", -- Golang
                     "pyright", -- Python
                 },
+                automatic_enable = false,
             })
         end
     },
@@ -54,7 +55,9 @@ return {
             })
 
             -- set up Typescript language server
-            lspconfig.ts_ls.setup({})
+            lspconfig.ts_ls.setup({
+                root_dir = lspconfig.util.root_pattern('.git'), -- Use .git folder as LSP root, since subpackage package.json will be too many
+            })
 
 
             -- set up Golang language server
