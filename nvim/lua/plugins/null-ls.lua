@@ -3,17 +3,16 @@ return {
     {
         "jayp0521/mason-null-ls.nvim",
         config = function()
-            require('mason-null-ls').setup({
+            require("mason-null-ls").setup({
                 ensure_installed = {
-                    'prettier', -- TS/JS formatter
-                    'stylua', -- Lua formatter
-                    'gopls',
-                    'gofumpt',
-                    'golines',
-                    'goimports_reviser',
+                    "prettier", -- TS/JS formatter
+                    "stylua", -- Lua formatter
+                    "gofumpt", -- stricter gofmt
+                    "golines", -- Try to shorten long lines
+                    "goimports_reviser", -- goimports, but more deterministic sorting
                 },
             })
-        end
+        end,
     },
     {
         "nvim-tools/none-ls.nvim",
@@ -27,8 +26,8 @@ return {
                 sources = {
                     null_ls.builtins.formatting.prettier,
                     null_ls.builtins.formatting.gofumpt,
-                    null_ls.builtins.formatting.goimports_reviser, -- goimports, but with more deterministic sorting
-                    null_ls.builtins.formatting.golines, -- Try to shorten long lines
+                    null_ls.builtins.formatting.goimports_reviser,
+                    null_ls.builtins.formatting.golines,
                 },
                 -- On attaching to none-ls, register autocmd to format on buffer pre-write
                 on_attach = function(client, bufnr)
@@ -47,6 +46,6 @@ return {
                     end
                 end,
             })
-        end
-    }
+        end,
+    },
 }
