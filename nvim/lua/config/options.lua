@@ -54,3 +54,8 @@ vim.opt.autoindent = true
 ---- Misc
 vim.opt.termguicolors = true
 
+-- Sync clipboard between OS and Neovim -- scheduled after `UiEnter` because it can increase startup-time
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
+
