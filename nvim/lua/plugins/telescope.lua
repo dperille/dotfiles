@@ -8,19 +8,75 @@ return {
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
             -- makes telescope the backend for Nvim's builtin ui selection/inputs
             "nvim-telescope/telescope-ui-select.nvim",
+            "nvim-telescope/telescope-file-browser.nvim",
         },
         config = function()
+            local telescope = require("telescope")
             local actions = require("telescope.actions")
+            local action_state = require("telescope.actions.state")
             local builtin = require("telescope.builtin")
+            local fb_actions = require("telescope._extensions.file_browser.actions")
+
+            -- Utility to first use telescope to select directory, then execute the search action confined to that directory
+            telescope.load_extension("file_browser")
+            local function select_dir_then_search(telescope_action)
+                -- Get the current buffer's directory (fallback to cwd if no file)
+                local buf_dir = vim.fn.expand('%:p:h') -- Path, stopping at directory (head)
+                if buf_dir == '' or not vim.fn.isdirectory(buf_dir) then
+                    buf_dir = vim.fn.getcwd()
+                end
+
+                telescope.extensions.file_browser.file_browser({
+                    path = buf_dir,
+                    cwd_to_path = true, -- Launch from current path, not root dir
+                    select_buffer = false,
+                    hidden = false,
+                    respect_gitignore = true,
+                    -- Instead of default file browser behavior, open search task with selection instead
+                    attach_mappings = function(prompt_bufnr, map)
+                        actions.select_default:replace(function()
+                            local selection = action_state.get_selected_entry()
+                            actions.close(prompt_bufnr)
+                            if selection and selection.cwd then
+                                telescope_action({ cwd = selection.cwd })
+                            end
+                        end)
+
+                        -- Enable directory navigation -- h to step out, l to step in
+                        map("i", "<C-h>", fb_actions.goto_parent_dir)
+                        map("n", "h", fb_actions.goto_parent_dir)
+                        map("i", "<C-l>", function()
+                            local selection = action_state.get_selected_entry()
+                            if selection and vim.fn.isdirectory(selection.path) then
+                                fb_actions.change_cwd(prompt_bufnr)
+                            end
+                        end)
+                        map("n", "l", function()
+                            local selection = action_state.get_selected_entry()
+                            if selection and vim.fn.isdirectory(selection.path) then
+                                fb_actions.change_cwd(prompt_bufnr)
+                            end
+                        end)
+
+                        return true
+                    end,
+                })
+            end
 
             -- Find by file name
             vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
+            vim.keymap.set("n", "<leader>fif", function() select_dir_then_search(builtin.find_files) end,
+                { desc = "[F]ind [I]n-directory [F]iles" })
+
             -- Live grep for contents
             vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[F]ind by [G]rep" })
+            vim.keymap.set("n", "<leader>fig", function() select_dir_then_search(builtin.live_grep) end,
+                { desc = "[F]ind [I]n-directory by [G]rep" })
+
             -- Search for recent files
             vim.keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
 
-            require("telescope").setup({
+            telescope.setup({
                 extensions = {
                     fzf = {
                         fuzzy = true,
