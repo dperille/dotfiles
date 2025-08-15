@@ -16,6 +16,7 @@ vim.keymap.set("v", "<leader>p", "\"_dP", { desc = "Put, preserving default regi
 vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { desc = "[W]indow Split [V]ertical" })
 vim.keymap.set("n", "<leader>ws", ":split<CR>", { desc = "[W]indow [S]plit Horizontal" })
 
+vim.keymap.set("n", "<leader>wo", ":winc o<CR>", { desc = "[W]indow [O]nly leave current open" })
 vim.keymap.set("n", "<leader>wc", ":winc c<CR>", { desc = "[W]indow [C]lose" })
 vim.keymap.set('n', '<leader>wn', ":winc n<CR>", { desc = "[W]indow [N]ew empty" })
 vim.keymap.set('n', '<leader>wp', ":winc p<CR>", { desc = "[W]indow [P]revious" })
