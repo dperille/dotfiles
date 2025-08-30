@@ -1,3 +1,105 @@
+local function setup_lsp()
+    local lspconfig = require('lspconfig')
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+    -- set up JDTLS language server
+    -- Using nvim-java rather than manual setup b/c it was making me sad
+    -- TODO: disable spring boot, enable auto-complete with LSP
+    require('java').setup({
+        -- log_level = vim.log.levels.DEBUG,
+        notifications = {
+            dap = true,
+        },
+        jdtls = {
+            settings = {
+                java = {
+                    referencesCodeLens = {
+                        enabled = true,
+                    },
+                    implementationsCodeLens = {
+                        enabled = true,
+                    },
+                    debug = {
+                        settings = {
+                            vmArgs = "-Xmx 8g -Xms 8g", -- Max & starting heap
+                        }
+                    }
+                }
+            },
+            init_options = {
+                extendedClientCapabilities = {
+                    overrideMethodsPromptSupport = true,
+                    resolveAdditionalTextEditsSupport = true, -- Allow additional edits beyond primary (eg auto-imports)
+                }
+            }
+        }
+    })
+    lspconfig.jdtls.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+            vim.lsp.codelens.refresh()
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+                buffer = bufnr,
+                callback = vim.lsp.codelens.refresh,
+            })
+        end
+    })
+
+    -- Lua
+    lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+        settings = {
+            Lua = {
+                diagnostics = {
+                    -- Register that "require" and "vim" are special global variables, to avoid warnings from language server
+                    globals = {
+                        'vim',
+                        'require',
+                    },
+                },
+            },
+        },
+    })
+
+    -- Typescript
+    lspconfig.ts_ls.setup({
+        capabilities = capabilities,
+        root_dir = lspconfig.util.root_pattern('.git'), -- Use .git folder as LSP root, since subpackage package.json will be too many
+    })
+
+
+    -- Golang
+    lspconfig.gopls.setup({
+        capabilities = capabilities,
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        settings = {
+            gopls = {
+                completeUnimported = true,
+                usePlaceholders = true,
+                analyses = {
+                    unusedparams = true,
+                },
+            },
+        },
+    })
+
+    -- Python
+    lspconfig.pyright.setup({
+        capabilities = capabilities,
+    })
+end
+
+local function test_file()
+    local ft = vim.bo.filetype
+
+    if ft == 'java' then
+        require('java').test.run_current_class()
+        require('java').test.view_last_report()
+    else
+        vim.notify('No test runner configured for ' .. ft)
+    end
+end
+
 return {
     -- mason-lspconfig uses mason to automatically ensure desired LSP servers are installed
     {
@@ -7,7 +109,7 @@ return {
                 ensure_installed = {
                     "lua_ls",  -- Lua
                     "ts_ls",   -- TypeScript
-                    -- "jdtls", -- Java (Eclipse)
+                    -- "jdtls",   -- Java (Eclipse)
                     "gopls",   -- Golang
                     "pyright", -- Python
                 },
@@ -24,12 +126,16 @@ return {
             })
         end
     },
-    -- plugin to configure jdtls LSP
     {
-        "mfussenegger/nvim-jdtls",
+        "nvim-java/nvim-java",
+        config = false,
         dependencies = {
-            "mfussenegger/nvim-dap",
-        }
+            'nvim-java/lua-async-await',
+            'nvim-java/nvim-java-core',
+            'nvim-java/nvim-java-test',
+            'nvim-java/nvim-java-dap',
+            'MunifTanjim/nui.nvim',
+        },
     },
     {
         "neovim/nvim-lspconfig",
@@ -38,51 +144,10 @@ return {
             "nvim-telescope/telescope.nvim",
         },
         config = function()
-            local lspconfig = require("lspconfig")
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+            setup_lsp()
 
-            -- set up Lua language server
-            lspconfig.lua_ls.setup({
-                capabilities = capabilities,
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            -- Register that "require" and "vim" are special global variables, to avoid warnings from language server
-                            globals = {
-                                'vim',
-                                'require',
-                            },
-                        },
-                    },
-                },
-            })
-
-            -- set up Typescript language server
-            lspconfig.ts_ls.setup({
-                capabilities = capabilities,
-                root_dir = lspconfig.util.root_pattern('.git'), -- Use .git folder as LSP root, since subpackage package.json will be too many
-            })
-
-
-            -- set up Golang language server
-            lspconfig.gopls.setup({
-                capabilities = capabilities,
-                filetypes = { "go", "gomod", "gowork", "gotmpl" },
-                settings = {
-                    gopls = {
-                        completeUnimported = true,
-                        usePlaceholders = true,
-                        analyses = {
-                            unusedparams = true,
-                        },
-                    },
-                },
-            })
-
-            -- set up Python language server
-            lspconfig.pyright.setup({
-                capabilities = capabilities,
-            })
+            -- Test running keymaps
+            vim.keymap.set("n", "<leader>ct", test_file, { desc = "Test" })
 
             -- Diagnostic messages
             vim.diagnostic.config({
@@ -98,16 +163,16 @@ return {
                 severity_sort = true,
             })
 
-            -- Vim motion for <Space> + c + h to show code documentation above the cursor
+            -- Show documentation
             vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "[C]ode [H]over Documentation" })
-            -- Vim motion for <Space> + c + d to go to definition
+            -- Go to definition
             vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "[C]ode Goto [D]efinition" })
-            -- Vim motion for <Space> + c + r to go to references
+            -- Show references
             vim.keymap.set("n", "<leader>cr", require("telescope.builtin").lsp_references,
                 { desc = "[C]ode Goto [R]eferences" })
-            -- Vim motion for <Space> + c + a to display code action suggestions for diagnostics
+            -- Code actions
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
-            -- Vim motion for <Space> + c + R to rename code
+            -- Rename
             vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
         end
     }
