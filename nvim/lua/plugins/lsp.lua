@@ -171,6 +171,8 @@ return {
             -- Go to definition
             vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "[C]ode Goto [D]efinition" })
             -- Show references
+            -- NOTE: won't work when "git" is anywhere on file path
+            -- https://github.com/nvim-telescope/telescope.nvim/issues/3437
             vim.keymap.set("n", "<leader>cr", require("telescope.builtin").lsp_references,
                 { desc = "[C]ode Goto [R]eferences" })
             -- Code actions
