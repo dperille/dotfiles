@@ -32,7 +32,10 @@ local function setup_lsp()
                     resolveAdditionalTextEditsSupport = true, -- Allow additional edits beyond primary (eg auto-imports)
                 }
             }
-        }
+        },
+        spring_boot_tools = {
+            enable = false,
+        },
     })
     lspconfig.jdtls.setup({
         capabilities = capabilities,
