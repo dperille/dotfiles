@@ -86,13 +86,24 @@ return {
                     },
                 },
                 defaults = {
+                    -- Path display in file picker
                     path_display = { "smart" },
+
+                    -- Show file path from root alongside code preview
+                    dynamic_preview_title = true,
+                    preview_title = function(_, bufnr)
+                        local path = vim.api.nvim_buf_get_name(bufnr)
+                        return vim.fn.fnamemodify(path, ":p")
+                    end,
+
                     layout_config = {
                         horizontal = { width = 0.9, preview_cutoff = 120 },
                         vertical = { width = 0.8 },
                     },
                     file_ignore_patterns = { "node_modules", ".git/", "dist", "build" },
                     selection_caret = "  ",
+
+                    -- Cycling through file picker
                     mappings = {
                         i = {
                             ["<C-j>"] = actions.move_selection_next,
