@@ -14,7 +14,7 @@ return {
             end
             for _, client in ipairs(clients) do
                 local filetypes = client.config.filetypes
-                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= "null-ls" then
                     return client.name
                 end
             end
@@ -53,7 +53,7 @@ return {
                 -- filename and current LSP
                 lualine_c = {
                     { "filename", path = 1 }, -- path=1 shows relative path
-                    "%=",                   -- used to center the LSP status
+                    "%=",                     -- used to center the LSP status
                     { lsp_status, icon = ' LSP:', color = { fg = '#ffffff' }, separator = { left = '', right = '' } },
                 },
                 -- file encoding and type
