@@ -9,6 +9,7 @@ return {
                     "stylua",            -- Lua formatter
                     "gofumpt",           -- stricter gofmt
                     "golines",           -- Try to shorten long lines
+                    "goimports",         -- Will actually remove unused imports
                     "goimports_reviser", -- goimports, but more deterministic sorting
                 },
             })
@@ -36,6 +37,7 @@ return {
                     }),
                     null_ls.builtins.formatting.gofumpt,
                     null_ls.builtins.formatting.goimports_reviser,
+                    null_ls.builtins.formatting.goimports, -- must come second, since reviser doesn't remove unused
                     null_ls.builtins.formatting.golines,
                 },
                 -- On attaching to none-ls, register autocmd to format on buffer pre-write
