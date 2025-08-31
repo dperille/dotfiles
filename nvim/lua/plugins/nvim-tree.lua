@@ -6,7 +6,6 @@ return {
 
         -- Keymaps
         vim.keymap.set('n', '<leader>eo', api.tree.open, { desc = "[E]xplorer [O]pen" })
-        vim.keymap.set('n', '<leader>ee', api.tree.close, { desc = '[E]xplorer Close' })
         vim.keymap.set('n', '<leader>et', api.tree.toggle, { desc = '[E]xplorer [T]oggle' })
         vim.keymap.set(
             'n', '<leader>ef',

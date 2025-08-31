@@ -3,10 +3,10 @@ return {
         "akinsho/toggleterm.nvim",
         config = function()
             -- Keymaps
-            vim.keymap.set('n', '<leader>tt', ':ToggleTerm<CR>')
+            vim.keymap.set('n', '<leader>tt', ':ToggleTermToggleAll<CR>')
             vim.keymap.set('n', '<leader>tn', ':TermNew<CR>', { desc = "[T]erminal [N]ew" })
             vim.keymap.set('n', '<leader>ts', ':TermSelect<CR>', { desc = "[T]erminal [S]elect" })
-            vim.keymap.set('t', '<C-space>', '<C-\\><C-n>') -- Exiting terminal mode
+            vim.keymap.set('t', '<C-space>', '<C-\\><C-n>:ToggleTermToggleAll<CR>') -- Exiting terminal mode and toggle off
 
             require("toggleterm").setup({
                 size = function(term)
