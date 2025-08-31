@@ -16,6 +16,7 @@ return {
             local action_state = require("telescope.actions.state")
             local builtin = require("telescope.builtin")
             local fb_actions = require("telescope._extensions.file_browser.actions")
+            local themes = require("telescope.themes")
 
             -- Utility to first use telescope to select directory, then execute the search action confined to that directory
             telescope.load_extension("file_browser")
@@ -84,6 +85,10 @@ return {
                         override_file_sorter = true,
                         case_mode = "smart_case",
                     },
+                    ["ui-select"] = {
+                        -- Use cursor-centered list to display options
+                        themes.get_cursor {}
+                    },
                 },
                 defaults = {
                     -- Path display in file picker
@@ -117,6 +122,9 @@ return {
                     },
                 },
             })
+
+            -- Actually enable the ui-select extension (above just sets settings) to use telescope for selections
+            require("telescope").load_extension("ui-select")
         end,
     },
 }
