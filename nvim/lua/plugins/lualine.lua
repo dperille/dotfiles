@@ -49,11 +49,11 @@ return {
                 -- display current mode
                 lualine_a = { "mode" },
                 -- git information + code diagnostics
-                lualine_b = { "branch", "diff", "diagnostics" },
+                lualine_b = { "diff", "branch" },
                 -- filename and current LSP
                 lualine_c = {
-                    { "filename", path = 1 }, -- path=1 shows relative path
-                    "%=",                     -- used to center the LSP status
+                    { "diagnostics" },
+                    "%=", -- used to center the LSP status
                     { lsp_status, icon = ' LSP:', color = { fg = '#ffffff' }, separator = { left = '', right = '' } },
                 },
                 -- file encoding and type
@@ -67,8 +67,12 @@ return {
                 lualine_z = { "location" },
             },
             tabline = {},
-            winbar = {},
-            inactive_winbar = {},
+            winbar = {
+                lualine_c = { { 'filename', path = 1 } }, -- path=1 is relative path
+            },
+            inactive_winbar = {
+                lualine_c = { { 'filename', path = 1 } },
+            },
             extensions = {}
         })
     end
