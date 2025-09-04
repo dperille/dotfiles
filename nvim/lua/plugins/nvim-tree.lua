@@ -54,6 +54,11 @@ return {
                     max = vim.diagnostic.severity.ERROR,
                 }
             },
+            filters = {
+                dotfiles = false,    -- Show dotfiles
+                git_ignored = false, -- Show gitignored
+                custom = {},
+            }
         })
     end
 }
