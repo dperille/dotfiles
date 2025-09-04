@@ -105,7 +105,7 @@ return {
                         horizontal = { width = 0.9, preview_cutoff = 120 },
                         vertical = { width = 0.8 },
                     },
-                    file_ignore_patterns = { "node_modules", ".git/", "dist", "build" },
+                    file_ignore_patterns = { "node_modules/", ".git/", "/dist/", "/build/" },
                     selection_caret = "  ",
 
                     -- Cycling through file picker
