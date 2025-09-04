@@ -41,7 +41,7 @@ local function setup_lsp()
         capabilities = capabilities,
         on_attach = function(client, bufnr)
             vim.lsp.codelens.refresh()
-            vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+            vim.api.nvim_create_autocmd({ "BufWritePost" }, {
                 buffer = bufnr,
                 callback = vim.lsp.codelens.refresh,
             })
