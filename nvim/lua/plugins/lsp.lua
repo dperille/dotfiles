@@ -10,35 +10,49 @@ local function setup_lsp()
         notifications = {
             dap = true,
         },
-        jdtls = {
-            settings = {
-                java = {
-                    referencesCodeLens = {
-                        enabled = true,
-                    },
-                    implementationsCodeLens = {
-                        enabled = true,
-                    },
-                    debug = {
-                        settings = {
-                            vmArgs = "-Xmx 8g -Xms 8g", -- Max & starting heap
-                        }
-                    }
-                }
-            },
-            init_options = {
-                extendedClientCapabilities = {
-                    overrideMethodsPromptSupport = true,
-                    resolveAdditionalTextEditsSupport = true, -- Allow additional edits beyond primary (eg auto-imports)
-                }
-            }
-        },
         spring_boot_tools = {
             enable = false,
         },
     })
     lspconfig.jdtls.setup({
         capabilities = capabilities,
+        settings = {
+            java = {
+                referencesCodeLens = {
+                    enabled = true,
+                },
+                implementationsCodeLens = {
+                    enabled = true,
+                },
+                completion = {
+                    favoriteStaticMembers = {
+                        'org.mockito.Mockito.*',
+                        'org.assertj.core.api.Assertions.'
+                    },
+                },
+                contentProvider = {
+                    preferred = 'fernflower', -- Decompiler to view source code from .class/.jar binary
+                },
+                maven = {
+                    downloadSources = true,
+                },
+                eclipse = {
+                    downloadSources = true,
+                },
+                configuration = {
+                    updateBuildConfiguration = "interactive",
+                },
+                symbols = {
+                    includeSourceMethodDeclarations = true,
+                },
+            },
+        },
+        init_options = {
+            extendedClientCapabilities = {
+                overrideMethodsPromptSupport = true,
+                resolveAdditionalTextEditsSupport = true, -- Allow additional edits beyond primary (eg auto-imports)
+            }
+        },
         on_attach = function(client, bufnr)
             vim.lsp.codelens.refresh()
             vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -174,7 +188,9 @@ return {
             -- NOTE: won't work when "git" is anywhere on file path
             -- https://github.com/nvim-telescope/telescope.nvim/issues/3437
             vim.keymap.set("n", "<leader>cr", require("telescope.builtin").lsp_references,
-                { desc = "[C]ode Goto [R]eferences" })
+                { desc = "[C]ode Show [R]eferences" })
+            vim.keymap.set("n", "<leader>ci", require("telescope.builtin").lsp_implementations,
+                { desc = "[C]ode Show [I]mplementations" })
             -- Code actions
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
             -- Rename
