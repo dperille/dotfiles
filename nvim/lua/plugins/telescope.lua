@@ -31,8 +31,6 @@ return {
                     path = buf_dir,
                     cwd_to_path = true, -- Launch from current path, not root dir
                     select_buffer = false,
-                    hidden = false,
-                    respect_gitignore = true,
                     -- Instead of default file browser behavior, open search task with selection instead
                     attach_mappings = function(prompt_bufnr, map)
                         actions.select_default:replace(function()
@@ -78,18 +76,6 @@ return {
             vim.keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
 
             telescope.setup({
-                extensions = {
-                    fzf = {
-                        fuzzy = true,
-                        override_generic_sorter = true,
-                        override_file_sorter = true,
-                        case_mode = "smart_case",
-                    },
-                    ["ui-select"] = {
-                        -- Use cursor-centered list to display options
-                        themes.get_cursor {}
-                    },
-                },
                 defaults = {
                     -- Path display in file picker
                     path_display = { "smart" },
@@ -120,6 +106,23 @@ return {
                             ["k"] = actions.move_selection_previous,
                         },
                     },
+                },
+                extensions = {
+                    fzf = {
+                        fuzzy = true,
+                        override_generic_sorter = true,
+                        override_file_sorter = true,
+                        case_mode = "smart_case",
+                    },
+                    ["ui-select"] = {
+                        -- Use cursor-centered list to display options
+                        themes.get_cursor {}
+                    },
+                    file_browser = {
+                        hidden = false,
+                        respect_gitignore = false,
+                        select_buffer = true,
+                    }
                 },
             })
 
