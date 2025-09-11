@@ -1,6 +1,6 @@
 local function setup_lsp()
     local lspconfig = require('lspconfig')
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local capabilities = require('blink.cmp').get_lsp_capabilities({}, false)
 
     -- set up JDTLS language server
     -- Using nvim-java rather than manual setup b/c it was making me sad
@@ -161,7 +161,7 @@ return {
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
+            "saghen/blink.cmp",
             "nvim-telescope/telescope.nvim",
         },
         config = function()
