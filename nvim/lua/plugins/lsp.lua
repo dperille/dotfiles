@@ -39,6 +39,9 @@ local function setup_lsp()
                 eclipse = {
                     downloadSources = true,
                 },
+                gradle = {
+                    downloadSources = true,
+                },
                 configuration = {
                     updateBuildConfiguration = "interactive",
                 },
@@ -51,6 +54,7 @@ local function setup_lsp()
             extendedClientCapabilities = {
                 overrideMethodsPromptSupport = true,
                 resolveAdditionalTextEditsSupport = true, -- Allow additional edits beyond primary (eg auto-imports)
+                classFileContentsSupport = true,
             }
         },
         on_attach = function(client, bufnr)
