@@ -19,7 +19,6 @@ return {
             local themes = require("telescope.themes")
 
             -- Utility to first use telescope to select directory, then execute the search action confined to that directory
-            telescope.load_extension("file_browser")
             local function select_dir_then_search(telescope_action)
                 -- Get the current buffer's directory (fallback to cwd if no file)
                 local buf_dir = vim.fn.expand('%:p:h') -- Path, stopping at directory (head)
@@ -126,8 +125,10 @@ return {
                 },
             })
 
-            -- Actually enable the ui-select extension (above just sets settings) to use telescope for selections
-            require("telescope").load_extension("ui-select")
+            -- Actually enable extensions (above just sets default settings)
+            telescope.load_extension("file_browser")
+            telescope.load_extension("ui-select")
+            telescope.load_extension("fzf")
         end,
     },
 }
