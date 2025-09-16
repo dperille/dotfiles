@@ -4,7 +4,6 @@ local function setup_lsp()
 
     -- set up JDTLS language server
     -- Using nvim-java rather than manual setup b/c it was making me sad
-    -- TODO: disable spring boot, enable auto-complete with LSP
     require('java').setup({
         -- log_level = vim.log.levels.DEBUG,
         notifications = {
@@ -19,10 +18,10 @@ local function setup_lsp()
         settings = {
             java = {
                 referencesCodeLens = {
-                    enabled = true,
+                    enabled = false,
                 },
                 implementationsCodeLens = {
-                    enabled = true,
+                    enabled = false,
                 },
                 completion = {
                     favoriteStaticMembers = {
