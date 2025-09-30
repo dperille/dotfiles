@@ -17,6 +17,7 @@ local function setup_lsp()
         capabilities = capabilities,
         settings = {
             java = {
+                -- Codelens was making normal operations really slow
                 referencesCodeLens = {
                     enabled = false,
                 },
@@ -57,11 +58,11 @@ local function setup_lsp()
             }
         },
         on_attach = function(client, bufnr)
-            vim.lsp.codelens.refresh()
-            vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-                buffer = bufnr,
-                callback = vim.lsp.codelens.refresh,
-            })
+            -- vim.lsp.codelens.refresh()
+            -- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+            --     buffer = bufnr,
+            --     callback = vim.lsp.codelens.refresh,
+            -- })
         end
     })
 
