@@ -108,6 +108,11 @@ local function setup_lsp()
     lspconfig.pyright.setup({
         capabilities = capabilities,
     })
+
+    -- Yaml
+    lspconfig.yamlls.setup({
+        capabilities = capabilities,
+    })
 end
 
 local function test_file()
@@ -133,6 +138,7 @@ return {
                     -- "jdtls",   -- Java (Eclipse)
                     "gopls",   -- Golang
                     "pyright", -- Python
+                    "yamlls",  -- Yaml
                 },
                 automatic_enable = false,
             })
