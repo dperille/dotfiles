@@ -42,22 +42,30 @@ return {
                     null_ls.builtins.formatting.golines,
                     null_ls.builtins.formatting.black,
                 },
-                -- On attaching to none-ls, register autocmd to format on buffer pre-write
+                -- Register keymap for formatting
                 on_attach = function(client, bufnr)
                     if client.supports_method("textDocument/formatting") then
-                        vim.api.nvim_clear_autocmds({
-                            group = augroup,
-                            buffer = bufnr,
-                        })
-                        vim.api.nvim_create_autocmd("BufWritePre", {
-                            group = augroup,
-                            buffer = bufnr,
-                            callback = function()
-                                vim.lsp.buf.format({ async = false })
-                            end,
-                        })
+                        vim.keymap.set("n", "<leader>cf", function()
+                            vim.lsp.buf.format({ async = true })
+                        end, { buffer = bufnr, desc = "[C]ode [F]ormat" })
                     end
                 end,
+                -- On attaching to none-ls, register autocmd to format on buffer pre-write
+                -- on_attach = function(client, bufnr)
+                --     if client.supports_method("textDocument/formatting") then
+                --         vim.api.nvim_clear_autocmds({
+                --             group = augroup,
+                --             buffer = bufnr,
+                --         })
+                --         vim.api.nvim_create_autocmd("BufWritePre", {
+                --             group = augroup,
+                --             buffer = bufnr,
+                --             callback = function()
+                --                 vim.lsp.buf.format({ async = false })
+                --             end,
+                --         })
+                --     end
+                -- end,
             })
         end,
     },
