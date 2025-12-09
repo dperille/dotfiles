@@ -193,18 +193,18 @@ return {
             -- Show documentation
             vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "[C]ode [H]over Documentation" })
             -- Go to definition
-            vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "[C]ode Goto [D]efinition" })
+            vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, { desc = "Goto [D]efinition" })
             -- Show references
             -- NOTE: won't work when "git" is anywhere on file path
             -- https://github.com/nvim-telescope/telescope.nvim/issues/3437
-            vim.keymap.set("n", "<leader>cr", require("telescope.builtin").lsp_references,
-                { desc = "[C]ode Show [R]eferences" })
+            vim.keymap.set("n", "<leader>r", require("telescope.builtin").lsp_references,
+                { desc = "Code [R]eferences" })
             vim.keymap.set("n", "<leader>ci", require("telescope.builtin").lsp_implementations,
                 { desc = "[C]ode Show [I]mplementations" })
             -- Code actions
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
             -- Rename
-            vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
+            vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
         end
     }
 }
