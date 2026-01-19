@@ -96,7 +96,7 @@ local function setup_lsp()
         settings = {
             gopls = {
                 completeUnimported = true,
-                usePlaceholders = true,
+                usePlaceholders = false,
                 analyses = {
                     unusedparams = true,
                 },
