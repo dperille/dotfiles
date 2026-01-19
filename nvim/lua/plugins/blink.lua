@@ -30,12 +30,7 @@ return {
             },
             keymap = {
                 preset = 'none',
-
-                ['<Tab>'] = {
-                    function(cmp)
-                        return cmp.select_and_accept()
-                    end
-                },
+                ['<Tab>'] = { 'select_and_accept', 'fallback' },
                 ['<C-j>'] = { 'select_next' },
                 ['<C-k>'] = { 'select_prev' },
             }
