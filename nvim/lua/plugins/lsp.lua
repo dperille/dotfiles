@@ -89,6 +89,15 @@ local function setup_lsp()
     })
 
 
+    -- Tailwind CSS
+    lspconfig.tailwindcss.setup({
+        filetypes = {
+            "html",
+            "typescriptreact",
+        },
+    })
+
+
     -- Golang
     lspconfig.gopls.setup({
         capabilities = capabilities,
@@ -133,12 +142,13 @@ return {
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "lua_ls",  -- Lua
-                    "ts_ls",   -- TypeScript
+                    "lua_ls",      -- Lua
+                    "ts_ls",       -- TypeScript
                     -- "jdtls",   -- Java (Eclipse)
-                    "gopls",   -- Golang
-                    "pyright", -- Python
-                    "yamlls",  -- Yaml
+                    "gopls",       -- Golang
+                    "pyright",     -- Python
+                    "yamlls",      -- Yaml
+                    "tailwindcss", -- Tailwind
                 },
                 automatic_enable = false,
             })
