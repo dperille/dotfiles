@@ -188,6 +188,10 @@ return {
 
             -- Diagnostic messages
             vim.diagnostic.config({
+                float = {
+                    source = "if_many",
+                    border = "rounded",
+                },
                 virtual_text = {
                     enabled = true, -- Inline diagnostic messages,
                     spacing = 4, -- Spacing between text and virtual text
@@ -199,7 +203,9 @@ return {
                 update_in_insert = false, -- update diagnostics while inserting
                 severity_sort = true,
             })
-
+            -- Jump prev/next diagnostics with float window
+            vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true}) end)
+            vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true}) end)
             -- Show documentation
             vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "[C]ode [H]over Documentation" })
             -- Go to definition
