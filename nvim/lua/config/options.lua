@@ -50,6 +50,15 @@ vim.opt.smartindent = true
 -- Use the indent from the previous line
 vim.opt.autoindent = true
 
+-- Override for .js/.ts/etc
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+  callback = function()
+    vim.bo.shiftwidth = 2
+    vim.bo.tabstop = 2
+  end,
+})
+
 
 ---- Misc
 vim.opt.termguicolors = true
