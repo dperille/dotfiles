@@ -204,10 +204,11 @@ return {
                 severity_sort = true,
             })
             -- Jump prev/next diagnostics with float window
-            vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true}) end)
-            vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true}) end)
+            vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
+            vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
             -- Show documentation
-            vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "[C]ode [H]over Documentation" })
+            vim.keymap.set("n", "<leader>ch", function() vim.lsp.buf.hover({ border = "rounded" }) end,
+                { desc = "[C]ode [H]over Documentation" })
             -- Go to definition
             vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, { desc = "Goto [D]efinition" })
             -- Show references
