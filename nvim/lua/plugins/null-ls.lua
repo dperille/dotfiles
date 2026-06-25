@@ -5,13 +5,14 @@ return {
         config = function()
             require("mason-null-ls").setup({
                 ensure_installed = {
-                    "prettier",          -- TS/JS formatter
-                    "stylua",            -- Lua formatter
-                    "gofumpt",           -- stricter gofmt
-                    "golines",           -- Try to shorten long lines
-                    "goimports",         -- Will actually remove unused imports
-                    "goimports_reviser", -- goimports, but more deterministic sorting
-                    "black",             -- Python
+                    "prettier",           -- TS/JS formatter
+                    "stylua",             -- Lua formatter
+                    "gofumpt",            -- stricter gofmt
+                    "golines",            -- Try to shorten long lines
+                    "goimports",          -- Will actually remove unused imports
+                    "goimports_reviser",  -- goimports, but more deterministic sorting
+                    "black",              -- Python
+                    "google-java-format", -- Java
                 },
             })
         end,
@@ -41,6 +42,7 @@ return {
                     null_ls.builtins.formatting.goimports, -- must come second, since reviser doesn't remove unused
                     null_ls.builtins.formatting.golines,
                     null_ls.builtins.formatting.black,
+                    null_ls.builtins.formatting.google_java_format,
                 },
                 -- Register keymap for formatting
                 on_attach = function(client, bufnr)
