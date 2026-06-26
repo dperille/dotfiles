@@ -2,70 +2,6 @@ local function setup_lsp()
     local lspconfig = require('lspconfig')
     local capabilities = require('blink.cmp').get_lsp_capabilities({}, false)
 
-    -- set up JDTLS language server
-    -- Using nvim-java rather than manual setup b/c it was making me sad
-    require('java').setup({
-        -- log_level = vim.log.levels.DEBUG,
-        notifications = {
-            dap = true,
-        },
-        spring_boot_tools = {
-            enable = false,
-        },
-    })
-    lspconfig.jdtls.setup({
-        capabilities = capabilities,
-        settings = {
-            java = {
-                -- Codelens was making normal operations really slow
-                referencesCodeLens = {
-                    enabled = false,
-                },
-                implementationsCodeLens = {
-                    enabled = false,
-                },
-                completion = {
-                    favoriteStaticMembers = {
-                        'org.mockito.Mockito.*',
-                        'org.assertj.core.api.Assertions.'
-                    },
-                },
-                contentProvider = {
-                    preferred = 'fernflower', -- Decompiler to view source code from .class/.jar binary
-                },
-                maven = {
-                    downloadSources = true,
-                },
-                eclipse = {
-                    downloadSources = true,
-                },
-                gradle = {
-                    downloadSources = true,
-                },
-                configuration = {
-                    updateBuildConfiguration = "interactive",
-                },
-                symbols = {
-                    includeSourceMethodDeclarations = true,
-                },
-            },
-        },
-        init_options = {
-            extendedClientCapabilities = {
-                overrideMethodsPromptSupport = true,
-                resolveAdditionalTextEditsSupport = true, -- Allow additional edits beyond primary (eg auto-imports)
-                classFileContentsSupport = true,
-            }
-        },
-        on_attach = function(client, bufnr)
-            -- vim.lsp.codelens.refresh()
-            -- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-            --     buffer = bufnr,
-            --     callback = vim.lsp.codelens.refresh,
-            -- })
-        end
-    })
-
     -- Lua
     lspconfig.lua_ls.setup({
         capabilities = capabilities,
@@ -124,17 +60,6 @@ local function setup_lsp()
     })
 end
 
-local function test_file()
-    local ft = vim.bo.filetype
-
-    if ft == 'java' then
-        require('java').test.run_current_class()
-        require('java').test.view_last_report()
-    else
-        vim.notify('No test runner configured for ' .. ft)
-    end
-end
-
 return {
     -- mason-lspconfig uses mason to automatically ensure desired LSP servers are installed
     {
@@ -154,26 +79,6 @@ return {
             })
         end
     },
-    -- mason-nvim-dap uses mason to automatically ensure desired debug adapters are installed
-    {
-        "jay-babu/mason-nvim-dap.nvim",
-        config = function()
-            require("mason-nvim-dap").setup({
-                ensure_installed = { "java-debug-adapter", "java-test" }
-            })
-        end
-    },
-    {
-        "nvim-java/nvim-java",
-        config = false,
-        dependencies = {
-            'nvim-java/lua-async-await',
-            'nvim-java/nvim-java-core',
-            'nvim-java/nvim-java-test',
-            'nvim-java/nvim-java-dap',
-            'MunifTanjim/nui.nvim',
-        },
-    },
     {
         "neovim/nvim-lspconfig",
         dependencies = {
@@ -182,9 +87,6 @@ return {
         },
         config = function()
             setup_lsp()
-
-            -- Test running keymaps
-            vim.keymap.set("n", "<leader>ct", test_file, { desc = "Test" })
 
             -- Diagnostic messages
             vim.diagnostic.config({
