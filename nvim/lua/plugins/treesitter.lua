@@ -7,7 +7,7 @@ return {
     -- when the plugin builds run the TSUpdate command to ensure all our servers are installed and updated
     build = ':TSUpdate',
     config = function()
-        require("nvim-treesitter.configs").setup({
+        require("nvim-ts-autotag").setup({
             ensure_installed = {
                 "vim",
                 "vimdoc",
