@@ -1,9 +1,8 @@
 local function setup_lsp()
-    local lspconfig = require('lspconfig')
     local capabilities = require('blink.cmp').get_lsp_capabilities({}, false)
 
     -- Lua
-    lspconfig.lua_ls.setup({
+    vim.lsp.config("lua_ls", {
         capabilities = capabilities,
         settings = {
             Lua = {
@@ -19,14 +18,18 @@ local function setup_lsp()
     })
 
     -- Typescript
-    lspconfig.ts_ls.setup({
+    vim.lsp.config("ts_ls", {
         capabilities = capabilities,
-        root_dir = lspconfig.util.root_pattern('.git'), -- Use .git folder as LSP root, since subpackage package.json will be too many
+        root_dir = function(bufnr, on_dir)
+            local root = vim.fs.root(bufnr, { ".git" })
+            on_dir(root)
+        end,
     })
 
 
     -- Tailwind CSS
-    lspconfig.tailwindcss.setup({
+    vim.lsp.config("tailwindcss", {
+        capabilities = capabilities,
         filetypes = {
             "html",
             "typescriptreact",
@@ -35,7 +38,7 @@ local function setup_lsp()
 
 
     -- Golang
-    lspconfig.gopls.setup({
+    vim.lsp.config("gopls", {
         capabilities = capabilities,
         filetypes = { "go", "gomod", "gowork", "gotmpl" },
         settings = {
@@ -50,13 +53,22 @@ local function setup_lsp()
     })
 
     -- Python
-    lspconfig.pyright.setup({
+    vim.lsp.config("pyright", {
         capabilities = capabilities,
     })
 
     -- Yaml
-    lspconfig.yamlls.setup({
+    vim.lsp.config("yamlls", {
         capabilities = capabilities,
+    })
+
+    vim.lsp.enable({
+        "lua_ls",
+        "ts_ls",
+        "tailwindcss",
+        "gopls",
+        "pyright",
+        "yamlls",
     })
 end
 

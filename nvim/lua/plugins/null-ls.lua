@@ -46,7 +46,7 @@ return {
                 },
                 -- Register keymap for formatting
                 on_attach = function(client, bufnr)
-                    if client.supports_method("textDocument/formatting") then
+                    if client:supports_method("textDocument/formatting") then
                         vim.keymap.set("n", "<leader>cf", function()
                             vim.lsp.buf.format({ async = true })
                         end, { buffer = bufnr, desc = "[C]ode [F]ormat" })

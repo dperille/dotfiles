@@ -17,12 +17,16 @@ return {
     -- Auto-close html tags
     {
         "windwp/nvim-ts-autotag",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
         event = { "InsertEnter" },
         config = function()
             require("nvim-ts-autotag").setup({
                 opts = {
-                    enable_close = true, -- Auto-close tags
-                    enable_rename = true, -- If renaming one tag, auto-renames matching one
+                    enable_close = true,          -- Auto-close tags
+                    enable_rename = true,         -- If renaming one tag, auto-renames matching one
+                    enable_close_on_slash = true, -- Handle self-closing tags (eg <br/>)
                 },
             })
         end,

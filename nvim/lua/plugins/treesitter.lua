@@ -1,19 +1,17 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-        -- ts-autotag utilizes treesitter to understand the code structure to automatically close tsx tags
-        "windwp/nvim-ts-autotag"
-    },
-    -- when the plugin builds run the TSUpdate command to ensure all our servers are installed and updated
-    build = ':TSUpdate',
+    -- Update installed Tree-sitter parsers whenever nvim-treesitter is installed or updated
+    build = ":TSUpdate",
     config = function()
-        require("nvim-ts-autotag").setup({
+        require("nvim-treesitter.configs").setup({
             ensure_installed = {
                 "vim",
                 "vimdoc",
                 "lua",
                 "java",
                 "go",
+                "gomod",
+                "gowork",
                 "python",
                 "javascript",
                 "typescript",
@@ -25,11 +23,9 @@ return {
                 "markdown_inline",
                 "gitignore",
             },
-            highlight = { enable = true },
-            -- Auto-close TSX tags
-            autotag = {
-                enable = true
-            }
+            highlight = {
+                enable = true,
+            },
         })
-    end
+    end,
 }

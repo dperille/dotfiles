@@ -4,6 +4,32 @@ return {
         local nvim_tree = require("nvim-tree")
         local api = require("nvim-tree.api")
 
+        -- Setup
+        nvim_tree.setup({
+            view = {
+                width = 50,
+            },
+            -- use nvim-tree instead of netrw
+            hijack_netrw = true,
+            -- reload file tree on writes
+            auto_reload_on_write = true,
+            diagnostics = {
+                enable = true,
+                show_on_dirs = true,
+                show_on_open_dirs = true,
+                debounce_delay = 50,
+                severity = {
+                    min = vim.diagnostic.severity.WARN,
+                    max = vim.diagnostic.severity.ERROR,
+                }
+            },
+            filters = {
+                dotfiles = false,    -- Show dotfiles
+                git_ignored = false, -- Show gitignored
+                custom = {},
+            }
+        })
+
         -- Keymaps
         vim.keymap.set('n', '<leader>eo', api.tree.open, { desc = "[E]xplorer [O]pen" })
         vim.keymap.set('n', '<leader>et', api.tree.toggle, { desc = '[E]xplorer [T]oggle' })
@@ -34,31 +60,5 @@ return {
         )
         vim.keymap.set('n', '<leader>ep', api.tree.expand_all, { desc = '[E]xplorer Ex[P]and current node' })
         vim.keymap.set('n', '<leader>el', api.tree.collapse_all, { desc = '[E]xplorer Co[L]lapse all' })
-
-        -- Setup
-        nvim_tree.setup({
-            view = {
-                width = 50,
-            },
-            -- use nvim-tree instead of netrw
-            hijack_netrw = true,
-            -- reload file tree on writes
-            auto_reload_on_write = true,
-            diagnostics = {
-                enable = true,
-                show_on_dirs = true,
-                show_on_open_dirs = true,
-                debounce_delay = 50,
-                severity = {
-                    min = vim.diagnostic.severity.WARN,
-                    max = vim.diagnostic.severity.ERROR,
-                }
-            },
-            filters = {
-                dotfiles = false,    -- Show dotfiles
-                git_ignored = false, -- Show gitignored
-                custom = {},
-            }
-        })
     end
 }
