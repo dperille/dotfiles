@@ -12,3 +12,4 @@ bindkey -v
 export GOPATH=$HOME/go
 export PATH="/opt/homebrew/bin:$PATH:$GOPATH/bin"
 
+export PATH="$HOME/.local/bin:$PATH"
