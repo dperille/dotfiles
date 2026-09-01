@@ -17,13 +17,13 @@ return {
         local harpoon_ui = require("harpoon.ui")
         local harpoon_mark = require("harpoon.mark")
 
-        vim.keymap.set("n", "<leader>a",
+        vim.keymap.set("n", "<leader>ha",
             function()
                 harpoon_mark.add_file()
                 vim.cmd('redrawtabline')
             end,
             { desc = "Harpoon [a]dd file" })
-        vim.keymap.set("n", "<leader>h", harpoon_ui.toggle_quick_menu, { desc = "[H]arpoon quick menu" })
+        vim.keymap.set("n", "<leader>hh", harpoon_ui.toggle_quick_menu, { desc = "[H]arpoon quick menu" })
         vim.keymap.set("n", "<leader>1", function() harpoon_ui.nav_file(1) end)
         vim.keymap.set("n", "<leader>2", function() harpoon_ui.nav_file(2) end)
         vim.keymap.set("n", "<leader>3", function() harpoon_ui.nav_file(3) end)

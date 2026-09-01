@@ -9,6 +9,7 @@ return {
 
         -- Register prefixes
         which_key.add({
+            { "<leader>a", group = "[A]I" },
             { "<leader>g", group = "[G]it" },
             { "<leader>f", group = "[F]ind" },
             { "<leader>e", group = "[E]xplorer" },
