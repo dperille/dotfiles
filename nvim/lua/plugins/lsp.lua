@@ -62,10 +62,16 @@ local function setup_lsp()
         capabilities = capabilities,
     })
 
+    vim.lsp.config("cssls", {
+        capabilities = capabilities,
+        filetypes = { "css", "scss" },
+    })
+
     vim.lsp.enable({
         "lua_ls",
         "ts_ls",
         "tailwindcss",
+        "cssls",
         "gopls",
         "pyright",
         "yamlls",
@@ -86,6 +92,7 @@ return {
                     "pyright",     -- Python
                     "yamlls",      -- Yaml
                     "tailwindcss", -- Tailwind
+                    "cssls",       -- CSS
                 },
                 automatic_enable = false,
             })
