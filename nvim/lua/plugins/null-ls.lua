@@ -27,7 +27,9 @@ return {
             null_ls.setup({
                 debug = true,
                 sources = {
-                    null_ls.builtins.formatting.prettier,
+                    null_ls.builtins.formatting.prettier.with({
+                        prefer_local = "node_modules/.bin",
+                    }),
                     null_ls.builtins.formatting.stylua.with({
                         extra_args = {
                             "--column-width", "9999", -- don't reformat long lines
