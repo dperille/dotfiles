@@ -51,13 +51,13 @@ vim.opt.smartindent = true
 vim.opt.autoindent = true
 
 -- Override for .js/.ts/etc
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-  callback = function()
-    vim.bo.shiftwidth = 2
-    vim.bo.tabstop = 2
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+--   callback = function()
+--     vim.bo.shiftwidth = 2
+--     vim.bo.tabstop = 2
+--   end,
+-- })
 
 
 ---- Misc
