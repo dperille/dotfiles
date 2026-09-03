@@ -53,8 +53,20 @@ local function setup_lsp()
     })
 
     -- Python
-    vim.lsp.config("pyright", {
+    vim.lsp.config("basedpyright", {
         capabilities = capabilities,
+        settings = {
+            basedpyright = {
+                analysis = {
+                    typeCheckingMode = "standard", -- Less strict than default "recommended"
+
+                    useLibraryCodeForTypes = true, -- If library doesn't provide type stubs, try to extract from the source
+                    autoSearchPaths = true,
+                    autoImportCompletions = true,
+                    diagnosticMode = "openFilesOnly",
+                },
+            },
+        },
     })
 
     -- Yaml
@@ -73,7 +85,7 @@ local function setup_lsp()
         "tailwindcss",
         "cssls",
         "gopls",
-        "pyright",
+        "basedpyright",
         "yamlls",
     })
 end
@@ -85,14 +97,14 @@ return {
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "lua_ls",      -- Lua
-                    "ts_ls",       -- TypeScript
+                    "lua_ls",       -- Lua
+                    "ts_ls",        -- TypeScript
                     -- "jdtls",   -- Java (Eclipse)
-                    "gopls",       -- Golang
-                    "pyright",     -- Python
-                    "yamlls",      -- Yaml
-                    "tailwindcss", -- Tailwind
-                    "cssls",       -- CSS
+                    "gopls",        -- Golang
+                    "basedpyright", -- Python
+                    "yamlls",       -- Yaml
+                    "tailwindcss",  -- Tailwind
+                    "cssls",        -- CSS
                 },
                 automatic_enable = false,
             })
