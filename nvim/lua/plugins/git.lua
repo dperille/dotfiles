@@ -1,5 +1,6 @@
 return {
     {
+        -- Gitsigns for in-buffer git diff viewing, git blame, etc -- for regular editing
         "lewis6991/gitsigns.nvim",
         config = function()
             local gitsigns = require("gitsigns")
@@ -37,6 +38,43 @@ return {
             vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<CR>", { desc = "[G]it [B]ranches" }) -- <CR> to checkout, <C-y> to merge
             vim.keymap.set("n", "<leader>gm", ":Telescope git_bcommits<CR>",
                 { desc = "[G]it co[M]mits for current buffer" })
+        end,
+    },
+    {
+        -- Diffviewer for whole-changeset review/staging
+        "sindrets/diffview.nvim",
+        config = function()
+            local actions = require("diffview.actions")
+
+            require("diffview").setup({
+                watch_index = true,      -- Update views and index buffers when the git index changes.
+                enhanced_diff_hl = true, -- Highlight only word/chars, not whole line
+                keymaps = {
+                    disable_defaults = true,
+                    view = {
+                        -- Active in diff buffers
+                        { "n", "<C-j>",       actions.select_next_entry,              { desc = "Open the diff for the next file" } },
+                        { "n", "<C-k>",       actions.select_previous_entry,              { desc = "Open the diff for the previous file" } },
+                    },
+                    file_panel = {
+                        { "n", "j",    actions.next_entry,         { desc = "Next file" } },
+                        { "n", "k",    actions.prev_entry,         { desc = "Previous file" } },
+                        { "n", "<cr>", actions.select_entry,       { desc = "Open diff for entry" } },
+                        { "n", "s",    actions.toggle_stage_entry, { desc = "Stage/unstage entry" } },
+                        { "n", "S",    actions.stage_all,          { desc = "Stage all" } },
+                        { "n", "U",    actions.unstage_all,        { desc = "Unstage all" } },
+                        { "n", "R",    actions.unstage_all,        { desc = "Restore file" } },
+                    }
+                }
+            })
+
+            vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "[G]it [D]iffview open" })
+            vim.keymap.set("n", "<leader>gq", ":DiffviewClose<CR>", { desc = "[G]it diffview [Q]uit" })
+
+            -- Actual diff keymaps are same as Vim-native - right side is source file buffer on disk
+            -- ]c, [c = move to next or previous hunk
+            -- do = take hunk from Other side
+            -- dp = Put hunk from this side into the other
         end,
     },
 }
