@@ -13,3 +13,6 @@ export GOPATH=$HOME/go
 export PATH="/opt/homebrew/bin:$PATH:$GOPATH/bin"
 
 export PATH="$HOME/.local/bin:$PATH"
+
+# Source machine-specific .zshrc.local, if it exists
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
