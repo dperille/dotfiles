@@ -53,8 +53,8 @@ return {
                     disable_defaults = true,
                     view = {
                         -- Active in diff buffers
-                        { "n", "<C-j>",       actions.select_next_entry,              { desc = "Open the diff for the next file" } },
-                        { "n", "<C-k>",       actions.select_previous_entry,              { desc = "Open the diff for the previous file" } },
+                        { "n", "<C-j>", actions.select_next_entry, { desc = "Open the diff for the next file" } },
+                        { "n", "<C-k>", actions.select_prev_entry, { desc = "Open the diff for the previous file" } },
                     },
                     file_panel = {
                         { "n", "j",    actions.next_entry,         { desc = "Next file" } },
