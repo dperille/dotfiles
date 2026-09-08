@@ -155,10 +155,14 @@ return {
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
             -- Rename
             vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
-            -- Restart LSP clients for current buffer (forces servers to re-read files
-            -- edited on disk by external tools, e.g. Claude Code, that nvim's file
-            -- watcher missed)
-            vim.keymap.set("n", "<leader>cR", "<cmd>lsp restart<cr>", { desc = "[C]ode [R]estart LSP" })
+            -- Restart LSP clients - forces re-read off disk, for when file watcher missed
+            vim.keymap.set("n", "<leader>cR", function()
+                for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+                    if client.name ~= "null-ls" then
+                        vim.cmd("lsp restart " .. client.name)
+                    end
+                end
+            end, { desc = "[C]ode [R]estart LSP" })
         end
     }
 }
