@@ -53,17 +53,25 @@ return {
                     disable_defaults = true,
                     view = {
                         -- Active in diff buffers
-                        { "n", "<C-j>", actions.select_next_entry, { desc = "Open the diff for the next file" } },
-                        { "n", "<C-k>", actions.select_prev_entry, { desc = "Open the diff for the previous file" } },
+                        { "n", "<C-j>",      actions.select_next_entry, { desc = "Open the diff for the next file" } },
+                        { "n", "<C-k>",      actions.select_prev_entry, { desc = "Open the diff for the previous file" } },
+
+                        { "n", "<leader>et", actions.toggle_files,      { desc = "Toggle the file panel" } },
+                        { "n", "<leader>ef", actions.focus_files,       { desc = "Focus the file panel" } },
                     },
                     file_panel = {
-                        { "n", "j",    actions.next_entry,         { desc = "Next file" } },
-                        { "n", "k",    actions.prev_entry,         { desc = "Previous file" } },
-                        { "n", "<cr>", actions.select_entry,       { desc = "Open diff for entry" } },
-                        { "n", "s",    actions.toggle_stage_entry, { desc = "Stage/unstage entry" } },
-                        { "n", "S",    actions.stage_all,          { desc = "Stage all" } },
-                        { "n", "U",    actions.unstage_all,        { desc = "Unstage all" } },
-                        { "n", "R",    actions.unstage_all,        { desc = "Restore file" } },
+                        -- Navigation
+                        { "n", "j",     actions.next_entry,         { desc = "Next file" } },
+                        { "n", "<C-j>", actions.select_next_entry,  { desc = "Open the diff for the next file" } },
+                        { "n", "k",     actions.prev_entry,         { desc = "Previous file" } },
+                        { "n", "<C-k>", actions.select_prev_entry,  { desc = "Open the diff for the previous file" } },
+
+                        -- Staging
+                        { "n", "<cr>",  actions.select_entry,       { desc = "Open diff for entry" } },
+                        { "n", "s",     actions.toggle_stage_entry, { desc = "Stage/unstage entry" } },
+                        { "n", "S",     actions.stage_all,          { desc = "Stage all" } },
+                        { "n", "U",     actions.unstage_all,        { desc = "Unstage all" } },
+                        { "n", "R",     actions.restore_entry,      { desc = "Restore file" } },
                     }
                 }
             })
