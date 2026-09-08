@@ -79,10 +79,10 @@ return {
             vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "[G]it [D]iffview open" })
             vim.keymap.set("n", "<leader>gq", ":DiffviewClose<CR>", { desc = "[G]it diffview [Q]uit" })
 
-            -- Actual diff keymaps are same as Vim-native - right side is source file buffer on disk
-            -- ]c, [c = move to next or previous hunk
-            -- do = take hunk from Other side
-            -- dp = Put hunk from this side into the other
+            -- Actual diff keymaps are same as Vimdiff - right side is source file buffer on disk
+            -- Hunks: ]c (next hunk), [c (prev hunk)
+            -- Resolving: do (take hunk from Other side), dp (Put the changes from current window in other)
+            -- Folds: zo (open), zc (close), za (toggle), zR (open all), zM (close all)
         end,
     },
 }
