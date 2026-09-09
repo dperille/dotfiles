@@ -58,6 +58,9 @@ return {
 
                         { "n", "<leader>et", actions.toggle_files,      { desc = "Toggle the file panel" } },
                         { "n", "<leader>ef", actions.focus_files,       { desc = "Focus the file panel" } },
+
+                        -- See the actual buffer, to do LSP actions
+                        { "n", "<leader>o",  actions.goto_file_edit,    { desc = "Open the ordinary file buffer" } },
                     },
                     file_panel = {
                         -- Navigation
@@ -78,6 +81,10 @@ return {
 
             vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "[G]it [D]iffview open" })
             vim.keymap.set("n", "<leader>gq", ":DiffviewClose<CR>", { desc = "[G]it diffview [Q]uit" })
+
+            -- Add ability to open diffview from branch's merge-base with master
+            vim.keymap.set("n", "<leader>gr", ":DiffviewOpen master...HEAD<CR>",
+                { desc = "[G]it [R]eview branch from merge-base" })
 
             -- Actual diff keymaps are same as Vimdiff - right side is source file buffer on disk
             -- Hunks: ]c (next hunk), [c (prev hunk)
