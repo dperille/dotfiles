@@ -1,4 +1,5 @@
 local function setup_lsp()
+    -- Client -> server initialization of what client can handle
     local capabilities = require('blink.cmp').get_lsp_capabilities({}, false)
 
     -- Lua
@@ -20,6 +21,11 @@ local function setup_lsp()
     -- Typescript
     vim.lsp.config("ts_ls", {
         capabilities = capabilities,
+        on_attach = function(client)
+            -- vim.lsp.buf.format uses all clients that support formatting, but we want to leave it up solely to null-ls/prettier
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+        end,
         root_dir = function(bufnr, on_dir)
             local root = vim.fs.root(bufnr, { ".git" })
             on_dir(root)
