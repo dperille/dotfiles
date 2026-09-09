@@ -1,6 +1,5 @@
 return {
     "coder/claudecode.nvim",
-    dependencies = { "folke/snacks.nvim" },
     config = true,
     opts = {
         terminal = {
@@ -13,23 +12,15 @@ return {
     -- would not exist yet.
     cmd = {
         "ClaudeCode",
-        "ClaudeCodeFocus",
         "ClaudeCodeSelectModel",
         "ClaudeCodeAdd",
         "ClaudeCodeSend",
-        "ClaudeCodeTreeAdd",
-        "ClaudeCodeStatus",
-        "ClaudeCodeStart",
-        "ClaudeCodeStop",
-        "ClaudeCodeOpen",
-        "ClaudeCodeClose",
         "ClaudeCodeDiffAccept",
         "ClaudeCodeDiffDeny",
         "ClaudeCodeCloseAllDiffs",
     },
     keys = {
         { "<leader>ac", "<cmd>ClaudeCode<cr>",            desc = "Toggle Claude" },
-        { "<leader>af", "<cmd>ClaudeCodeFocus<cr>",       desc = "Focus Claude" },
         { "<leader>ar", "<cmd>ClaudeCode --resume<cr>",   desc = "Resume Claude" },
         { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
         { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
