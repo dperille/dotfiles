@@ -124,6 +124,7 @@ return {
         },
         config = function()
             setup_lsp()
+            local telescope_builtin = require("telescope.builtin")
 
             -- Diagnostic messages
             vim.diagnostic.config({
@@ -149,11 +150,11 @@ return {
             vim.keymap.set("n", "<leader>ch", function() vim.lsp.buf.hover({ border = "rounded" }) end,
                 { desc = "[C]ode [H]over Documentation" })
             -- Go to definition
-            vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, { desc = "Goto [D]efinition" })
+            vim.keymap.set("n", "<leader>d", telescope_builtin.lsp_definitions, { desc = "Goto [D]efinition" })
             -- Show references
-            vim.keymap.set("n", "<leader>r", require("telescope.builtin").lsp_references,
+            vim.keymap.set("n", "<leader>r", telescope_builtin.lsp_references,
                 { desc = "Code [R]eferences" })
-            vim.keymap.set("n", "<leader>ci", require("telescope.builtin").lsp_implementations,
+            vim.keymap.set("n", "<leader>ci", telescope_builtin.lsp_implementations,
                 { desc = "[C]ode Show [I]mplementations" })
             -- Code actions
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
