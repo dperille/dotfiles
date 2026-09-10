@@ -151,6 +151,9 @@ return {
                 { desc = "[C]ode [H]over Documentation" })
             -- Go to definition
             vim.keymap.set("n", "<leader>d", telescope_builtin.lsp_definitions, { desc = "Goto [D]efinition" })
+            -- Go to type definition
+            vim.keymap.set("n", "<leader>ct", telescope_builtin.lsp_type_definitions,
+                { desc = "[C]ode Goto [T]ype Definition" })
             -- Show references
             vim.keymap.set("n", "<leader>r", telescope_builtin.lsp_references,
                 { desc = "Code [R]eferences" })

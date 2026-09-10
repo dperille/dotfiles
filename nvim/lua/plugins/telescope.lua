@@ -90,7 +90,6 @@ return {
                         horizontal = { width = 0.9, preview_cutoff = 120 },
                         vertical = { width = 0.8 },
                     },
-                    file_ignore_patterns = { "node_modules/", "%.git/", "/dist/" },
                     selection_caret = "  ",
 
                     -- Cycling through file picker
@@ -121,6 +120,14 @@ return {
                         hidden = false,
                         respect_gitignore = false,
                         select_buffer = true,
+                        -- Put here rather than defaults since I want other pickers (eg go-to-def)
+                        -- to include these, but still want them excluded from find_files/live_grep
+                        -- Trailing $ hides directory itself, trailing / hides its entries
+                        file_ignore_patterns = {
+                            "node_modules/", "node_modules$",
+                            "%.git/", "%.git$",
+                            "/dist/", "/dist$",
+                        },
                     }
                 },
             })
