@@ -1,0 +1,58 @@
+#!/bin/sh
+# Build the standard dev layout in the current tmux window:
+#
+#   +----------+---------------+
+#   | claude   |               |
+#   +----------+    nvim .     |
+#   | shell    |               |
+#   +----------+---------------+
+#
+# Usage: tmux-dev [dir]
+#   dir   target directory for all three panes (default: cwd)
+
+# -e exits immediately if any non-zero statuses, -t makes unset variables error
+set -eu
+
+RIGHT_WIDTH=65%
+BOTTOM_HEIGHT=25%
+
+if [ "$#" -gt 1 ]; then
+    echo "tmux-dev: too many arguments" >&2
+    exit 1
+fi
+
+# First arg is target dir, or fallback is cwd if none provided
+dir=${1:-$PWD}
+
+if [ ! -d "$dir" ]; then
+    echo "tmux-dev: not a directory: $dir" >&2
+    exit 1
+fi
+
+# Capture the absolute path, since that's what tmux outputs
+dir=$(cd "$dir" && pwd)
+
+# Only allow running in tmux
+if [ -z "${TMUX:-}" ]; then
+    echo "tmux-dev: not inside tmux -- start or attach a session first" >&2
+    exit 1
+fi
+
+# Pane id of starting pane
+left=$(tmux display-message -p '#{pane_id}')
+
+# Harder to change existing pane's cwd - have to manually 'cd'
+if [ "$(tmux display-message -p -t "$left" '#{pane_current_path}')" != "$dir" ]; then
+    tmux send-keys -t "$left" "cd '$dir'" C-m
+fi
+
+# Capture the pane id of the new right pane
+right=$(tmux split-window -h -l "$RIGHT_WIDTH" -c "$dir" -t "$left" -P -F '#{pane_id}')
+
+# Split the left side top/bottom
+tmux split-window -v -l "$BOTTOM_HEIGHT" -c "$dir" -t "$left"
+
+# Starting commands for each pane
+tmux send-keys -t "$left" 'claude' C-m
+tmux send-keys -t "$right" 'nvim .' C-m
+tmux select-pane -t "$right"
