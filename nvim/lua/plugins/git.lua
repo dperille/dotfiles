@@ -49,6 +49,9 @@ return {
             require("diffview").setup({
                 watch_index = true,      -- Update views and index buffers when the git index changes.
                 enhanced_diff_hl = true, -- Highlight only word/chars, not whole line
+                default_args = {
+                    DiffviewOpen = { "--imply-local" }, -- Use live local file versions on right side of diff, rather than read-only git tree objects
+                },
                 keymaps = {
                     disable_defaults = true,
                     view = {
