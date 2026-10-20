@@ -13,8 +13,8 @@
 # -e exits immediately if any non-zero statuses, -t makes unset variables error
 set -eu
 
-RIGHT_WIDTH=65%
-BOTTOM_HEIGHT=25%
+RIGHT_WIDTH=60%
+BOTTOM_HEIGHT=30%
 
 if [ "$#" -gt 1 ]; then
     echo "tmux-dev: too many arguments" >&2
