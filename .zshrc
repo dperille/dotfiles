@@ -1,8 +1,11 @@
-alias gs="git status"
 alias gb="git branch"
-alias gd="git diff"
-alias gcm="git commit -m"
 alias gch="git checkout"
+alias gcm="git commit -m"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias gr="git restore"
+alias grs="git restore --staged"
+alias gs="git status"
 
 PROMPT='%(?.%F{green}✓.%F{red}?%?)%f %B%F{243}%2~%f%b %# '
 
