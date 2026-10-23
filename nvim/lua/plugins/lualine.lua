@@ -8,7 +8,7 @@ return {
         local function lsp_status()
             local msg = 'No Active Lsp'
             local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
-            local clients = vim.lsp.get_clients()
+            local clients = vim.lsp.get_clients({ bufnr = 0 })
             local names = {}
             for _, client in ipairs(clients) do
                 local filetypes = client.config.filetypes
