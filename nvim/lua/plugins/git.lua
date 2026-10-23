@@ -45,6 +45,7 @@ return {
         "sindrets/diffview.nvim",
         config = function()
             local actions = require("diffview.actions")
+            local lib = require("diffview.lib")
 
             require("diffview").setup({
                 watch_index = true,      -- Update views and index buffers when the git index changes.
@@ -83,7 +84,13 @@ return {
             })
 
             vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "[G]it [D]iffview open" })
-            vim.keymap.set("n", "<leader>gq", ":DiffviewClose<CR>", { desc = "[G]it diffview [Q]uit" })
+            vim.keymap.set("n", "<leader>gq", function()
+                -- Each DiffviewOpen stacks a new one but DiffviewClose usually only closes current one, so close them all
+                for _, view in ipairs(vim.list_slice(lib.views)) do
+                    view:close()
+                    lib.dispose_view(view)
+                end
+            end, { desc = "[G]it diffview [Q]uit (all views)" })
 
             -- Add ability to open diffview from branch's merge-base with master
             vim.keymap.set("n", "<leader>gr", ":DiffviewOpen master...HEAD<CR>",
