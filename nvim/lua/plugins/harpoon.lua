@@ -28,6 +28,10 @@ return {
         vim.keymap.set("n", "<leader>2", function() harpoon_ui.nav_file(2) end)
         vim.keymap.set("n", "<leader>3", function() harpoon_ui.nav_file(3) end)
         vim.keymap.set("n", "<leader>4", function() harpoon_ui.nav_file(4) end)
+        vim.keymap.set("n", "<leader>5", function() harpoon_ui.nav_file(5) end)
+        vim.keymap.set("n", "<leader>6", function() harpoon_ui.nav_file(6) end)
+        vim.keymap.set("n", "<leader>7", function() harpoon_ui.nav_file(7) end)
+        vim.keymap.set("n", "<leader>8", function() harpoon_ui.nav_file(8) end)
 
         -- Tabline colors
         vim.cmd('highlight! HarpoonInactive guibg=#232347 guifg=#8a8acb')
