@@ -74,7 +74,6 @@ local function setup_lsp()
             },
         },
     })
-
     -- Yaml
     vim.lsp.config("yamlls", {
         capabilities = capabilities,
@@ -163,6 +162,9 @@ return {
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
             -- Rename
             vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[C]ode [R]ename" })
+            -- Format
+            vim.keymap.set("n", "<leader>cf", function() vim.lsp.buf.format({ async = true }) end,
+                { desc = "[C]ode [F]ormat" })
             -- Restart LSP clients - forces re-read off disk, for when file watcher missed
             vim.keymap.set("n", "<leader>cR", function()
                 for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
